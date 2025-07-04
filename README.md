@@ -19,40 +19,65 @@ This project implements a shopping cart and checkout system for the Fawry Quantu
 
 ## 💻Code Examples :
 
-### Example 1: Successful Checkout
+### Example 1: Successful Checkout, Insufficient Balance, and Insufficient Stock
+This example showcases a successful checkout, followed by scenarios with insufficient balance (using the same customer after their balance is reduced) and insufficient stock (resulting from the successful transaction).
 ```java
-Item Cheese = new Item("Cheese", 10, LocalDate.of(2025, 11, 30)); // Quantity 10, expires 2025-11-30
-Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
-Item TV = new Item("TV", 1, null); // Quantity 1, no expiry
-Item MobileScratchCard = new Item("Mobile Scratch Card", 10, null); // Quantity 10, no expiry
+        Item Cheese = new Item("Cheese", 3, LocalDate.of(2025, 11, 30)); // Quantity 3, expires 2025-11-30
+        Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
+        Item TV = new Item("TV", 10, null); // Quantity 1, no expiry
+        Item MobileScratchCard = new Item("Mobile Scratch Card", 10, null); // Quantity 10, no expiry
 
-Customer john = new Customer("John Doe", 5000.0); // Balance 5000.0
-Cart cart = new Cart();
-cart.add(Cheese, 2); // Add 2 more Cheese
-cart.add(Biscuits, 1); // Add 1 more Biscuit
-cart.add(MobileScratchCard, 5); // Add 5 more Mobile Scratch Cards
-cart.add(TV, 1); // Add 1 more TV
+        Cart cart = new Cart();
+        cart.add(Cheese, 2); // Add 2 more Cheese
+        cart.add(Biscuits, 1); // Add 1 more Biscuit
+        cart.add(MobileScratchCard, 5); // Add 5 more Mobile Scratch Cards
+        cart.add(TV, 1); // Add 1 more TV
 
-Checkout checkout = new Checkout();
-checkout.checkout(john, cart);
+        // Case 1: Successful Checkout
+        Customer john = new Customer("John Doe", 5000.0); // Balance 5000.0
+        Checkout checkoutSuccess = new Checkout();
+        System.out.println("1st Case: Successful Checkout");
+        checkoutSuccess.checkout(john, cart); 
+
+        // Case 2: Insufficient Balance
+        Checkout checkoutInsufficientBalance = new Checkout();
+        System.out.println("2nd Case: Insufficient Balance");
+
+        checkoutInsufficientBalance.checkout(john, cart); 
+
+        // Case 3: Insufficient Stock
+        Cart lowStockCart = new Cart();
+        lowStockCart.add(Cheese, 2); // Request 2, but only 1 in stock
+        Customer johnInsufficientStock = new Customer("John Doe", 5000.0); // Balance 5000.0
+        Checkout checkoutInsufficientStock = new Checkout();
+        System.out.println("3rd Case: Insufficient Stock");
+        checkoutInsufficientStock.checkout(johnInsufficientStock, lowStockCart);
+
 ```
 #### Console Output
 ```
+1st Case: Successful Checkout
 ** Shipping notice **
+1x TV, Weight: 5000g
 1x Biscuits, Weight: 700g
 2x Cheese, Weight: 400g
-1x TV, Weight: 5000g
 Total package weight 6.1 kg
 ** Checkout receipt **
-1x Biscuits 150
-2x Cheese 200
 1x TV 3000
 5x Mobile Scratch Card 50
+1x Biscuits 150
+2x Cheese 200
 --------------------------------
 Subtotal 3400
 Shipping 61
 Amount 3461
 New balance 1539
+
+2nd Case: Insufficient Balance
+Insufficient balance for checkout. Total: 3461, Balance: 1539
+
+3rd Case: Insufficient Stock
+Not enough stock for item Cheese
 ```
 
 
