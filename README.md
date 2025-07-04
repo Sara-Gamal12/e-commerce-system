@@ -1,5 +1,4 @@
-# Fawry Quantum Internship Challenge :shopping_cart:
-
+# Fawry Quantum Internship Challenge :
 <p align="center">
   <img src="https://cdn.dribbble.com/users/656025/screenshots/2782309/tienda.gif" alt="E-commerce Animation" width="300" />
 </p>
@@ -154,12 +153,8 @@ No items to checkout
 - VS Code with Extension Pack for Java.
 
 ### Steps
-#### VS Code
-1. Open `e-commerce-system` folder.
-2. Open `src/Main.java` and click "Run" or right-click "Run Java".
-3. Output appears in Terminal.
 
-#### Terminal
+#### In Terminal
 1. `cd path/to/FawryInternshipChallenge/src`.
 2. Compile: `javac *.java` or list files explicitly.
 3. Run: `java Main`.
