@@ -8,6 +8,7 @@ public class Checkout {
 
     public void checkout(Customer customer, Cart cart) {
         List<ShippableItem> shippableItems = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
                 double subtotal = cart.getSubtotal();
                 double shippingCost = (cart.getTotalWeight() / 1000) * SHIPPING_RATE_PER_KG;
 
@@ -21,6 +22,7 @@ public class Checkout {
             int quantity = entry.getValue();
             if(item.isShippable()) {
                 shippableItems.add(item);
+                quantities.add(quantity);
             }
             if (item.Expired()) {
                  System.out.println("Item " + item.getName() + " has expired and cannot be checked out");
@@ -34,25 +36,20 @@ public class Checkout {
             System.out.printf("Insufficient balance for checkout. Total: %.0f, Balance: %.0f%n", subtotal + shippingCost, customer.getBalance());
             return;
         }
+        if(cart.getItems().isEmpty()) {
+            System.out.println("Cart is empty");
+            return;
+        }
 
 }
         // Shipment notice
         
-        System.out.println("** Shipment notice **");
         double totalWeightGrams = cart.getTotalWeight();
-        if (totalWeightGrams == 0) {
-            System.out.println("No items in cart");
-        } else {
-            System.out.printf("Total package weight %.1f kg%n", totalWeightGrams / 1000);
-            for (Map.Entry<Item, Integer> entry : cart.getItems().entrySet()) {
-                Item item = entry.getKey();
-                int quantity = entry.getValue();
-                double itemWeight = item.getWeight() * quantity;
-                System.out.printf("%dx %s %.0fg%n", quantity, item.getName(), itemWeight);
-            }
+         ShippingService  shippingService = new ShippingService();
+         shippingService.processShippableItems(shippableItems, quantities);
            
             System.out.printf("Total package weight %.1f kg%n", totalWeightGrams / 1000);
-        }
+    
 
         // Checkout receipt
         System.out.println("** Checkout receipt **");
@@ -69,8 +66,7 @@ public class Checkout {
             item.setQuantity(item.getQuantity() - quantity);
 
         }
-          ShippingService  shippingService = new ShippingService();
-            shippingService.processShippableItems(shippableItems);
+        
 System.out.println("--------------------------------");
         System.out.printf("Subtotal %.0f%n", subtotal);
         System.out.printf("Shipping %.0f%n", shippingCost);
