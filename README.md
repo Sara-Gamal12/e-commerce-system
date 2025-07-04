@@ -39,21 +39,16 @@ checkout.checkout(john, cart);
 ```
 #### Console Output
 ```
-**Shipment notice**
+** Shipping notice **
+1x Biscuits, Weight: 700g
+2x Cheese, Weight: 400g
+1x TV, Weight: 5000g
 Total package weight 6.1 kg
-2x Cheese 400g
-1x Biscuits 700g
-1x TV 5000g
-Total package weight 6.1 kg
-**Checkout receipt**
-2x Cheese 200
+** Checkout receipt **
 1x Biscuits 150
+2x Cheese 200
 1x TV 3000
 5x Mobile Scratch Card 50
-**Shipping Service**
-Processing item: Cheese, Weight: 200g
-Processing item: Biscuits, Weight: 700g
-Processing item: TV, Weight: 5000g
 --------------------------------
 Subtotal 3400
 Shipping 61
@@ -130,6 +125,27 @@ checkout.checkout(john, cart);
 #### Console Output
 ```
 Not enough stock for item Cheese
+```
+
+### Example 5:empty cart
+```java
+Item Cheese = new Item("Cheese", 1, LocalDate.of(2026, 11, 30)); // Quantity 1, expired as of 2026-07-04
+Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
+Item TV = new Item("TV", 1, null); // Quantity 1, no expiry
+Item MobileScratchCard = new Item("Mobile Scratch Card", 10, null); // Quantity 10, no expiry
+
+Customer john = new Customer("John Doe", 5000.0); // Balance 3000.0
+Cart cart = new Cart();
+Checkout checkout = new Checkout();
+checkout.checkout(john, cart);
+```
+#### Console Output
+```
+** Shipping notice **
+No shippable items to process
+Total package weight 0.0 kg
+** Checkout receipt **
+No items to checkout
 ```
 
 ## 🧠 How to Run
