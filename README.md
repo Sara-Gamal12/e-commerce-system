@@ -22,6 +22,7 @@ This project implements a shopping cart and checkout system for the Fawry Quantu
 ### Example 1: Successful Checkout, Insufficient Balance, and Insufficient Stock
 This example showcases a successful checkout, followed by scenarios with insufficient balance (using the same customer after their balance is reduced) and insufficient stock (resulting from the successful transaction).
 ```java
+        //add those items to the stock
         Item Cheese = new Item("Cheese", 3, LocalDate.of(2025, 11, 30)); // Quantity 3, expires 2025-11-30
         Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
         Item TV = new Item("TV", 10, null); // Quantity 1, no expiry
@@ -84,6 +85,7 @@ Not enough stock for item Cheese
 
 ### Example 2: Insufficient Balance
 ```java
+ //add those items to the stock
 Item Cheese = new Item("Cheese", 10, LocalDate.of(2025, 11, 30)); // Quantity 10, expires 2025-11-30
 Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
 Item TV = new Item("TV", 1, null); // Quantity 1, no expiry
@@ -107,6 +109,7 @@ Insufficient balance for checkout. Total: 3461, Balance: 3000
 
 ### Example 3: Expired Item
 ```java
+ //add those items to the stock
 Item Cheese = new Item("Cheese", 10, LocalDate.of(2023, 11, 30)); // Quantity 10, expired as of 2023-07-04
 Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
 Item TV = new Item("TV", 1, null); // Quantity 1, no expiry
@@ -131,6 +134,7 @@ Item Cheese has expired and cannot be checked out
 
 ### Example 4: Insufficient Stock
 ```java
+ //add those items to the stock
 Item Cheese = new Item("Cheese", 1, LocalDate.of(2026, 11, 30)); // Quantity 1, expired as of 2026-07-04
 Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
 Item TV = new Item("TV", 1, null); // Quantity 1, no expiry
@@ -153,6 +157,7 @@ Not enough stock for item Cheese
 
 ### Example 5:empty cart
 ```java
+ //add those items to the stock
 Item Cheese = new Item("Cheese", 1, LocalDate.of(2026, 11, 30)); // Quantity 1, expired as of 2026-07-04
 Item Biscuits = new Item("Biscuits", 10, LocalDate.of(2026, 11, 30)); // Quantity 10, expires 2026-11-30
 Item TV = new Item("TV", 1, null); // Quantity 1, no expiry
